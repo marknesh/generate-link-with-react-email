@@ -12,7 +12,10 @@ import * as functions from 'firebase-functions';
 import * as nodemailer from 'nodemailer';
 import { render } from '@react-email/render';
 import { Email } from '../dist/email.js';
+import { setGlobalOptions } from 'firebase-functions/v2/options';
 // import * as logger from 'firebase-functions/logger';
+
+setGlobalOptions({ maxInstances: 10 });
 
 // Start writing functions
 // https://firebase.google.com/docs/functions/typescript
@@ -34,6 +37,7 @@ exports.sendEmail = onRequest(
       },
     });
 
+    // eslint-disable-next-line
     const emailHtml = render(Email({ url: 'https://example.com' }));
 
     const options = {
@@ -45,7 +49,7 @@ exports.sendEmail = onRequest(
 
     transporter
       .sendMail(options)
-      .then((r) => res.send('success'))
+      .then(() => res.send('success'))
       .catch((err) => res.send({ error: err || 'error occured' }));
   }
 );
