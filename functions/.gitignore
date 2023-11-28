@@ -11,3 +11,5 @@ node_modules/
 *-debug.log
 
 dist/
+
+.react-email

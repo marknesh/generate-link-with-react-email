@@ -5,11 +5,12 @@ import {
   Heading,
   Hr,
   Html,
-  Img,
   Link,
   Preview,
   Section,
+  Tailwind,
   Text,
+  Font,
 } from '@react-email/components';
 import * as React from 'react';
 
@@ -17,56 +18,51 @@ interface EmailProps {
   magicLink?: string;
 }
 
-//@ts-ignore
-const baseUrl = process.env.VERCEL_URL
-  ? //@ts-ignore
-    `https://${process.env.VERCEL_URL}`
-  : '';
-
 export const Email = ({ magicLink = 'https://raycast.com' }: EmailProps) => (
   <Html>
-    <Head />
-    <Preview>Log in with this magic link.</Preview>
-    <Body style={main}>
-      <Container style={container}>
-        <Img
-          src={`${baseUrl}/static/raycast-logo.png`}
-          width={48}
-          height={48}
-          alt='Raycast'
-        />
-        <Heading style={heading}>🪄 Your magic link</Heading>
-        <Section style={body}>
+    <Head>
+      <Font fontFamily='Verdana' fallbackFontFamily='Verdana' />
+    </Head>
+    <Tailwind>
+      <Preview>Log in with this magic link.</Preview>
+      <Body style={main}>
+        <Container style={container}>
+          <Heading style={heading} className='text-red-500'>
+            🪄 Your magic link
+          </Heading>
+          <Section
+            style={body}
+            className='bg-[#F9F9F9] px-5 rounded-lg text-gray-700'
+          >
+            <Text style={paragraph}>
+              <Link href={magicLink} className='text-red-500'>
+                👉 Click here to sign in 👈
+              </Link>
+            </Text>
+            <Text style={paragraph}>
+              If you didn't request this, please ignore this email.
+            </Text>
+          </Section>
           <Text style={paragraph}>
-            <Link style={link} href={magicLink}>
-              👉 Click here to sign in 👈
+            Best,
+            <br />- Firebase dev Team
+          </Text>
+          <Hr style={hr} />
+
+          <Text style={footer}>
+            You are receiving this email because you requested to login via
+            magic link from our{' '}
+            <Link
+              href='https://raycast.com'
+              className='underline text-gray-400 text-inherit focus:text-gray-400 outline-none '
+            >
+              website
             </Link>
+            .
           </Text>
-          <Text style={paragraph}>
-            If you didn't request this, please ignore this email.
-          </Text>
-        </Section>
-        <Text style={paragraph}>
-          Best,
-          <br />- Raycast Team
-        </Text>
-        <Hr style={hr} />
-        <Img
-          src={`${baseUrl}/static/raycast-logo.png`}
-          width={32}
-          height={32}
-          style={{
-            WebkitFilter: 'grayscale(100%)',
-            filter: 'grayscale(100%)',
-            margin: '20px 0',
-          }}
-        />
-        <Text style={footer}>Raycast Technologies Inc.</Text>
-        <Text style={footer}>
-          2093 Philadelphia Pike #3222, Claymont, DE 19703
-        </Text>
-      </Container>
-    </Body>
+        </Container>
+      </Body>
+    </Tailwind>
   </Html>
 );
 
@@ -80,7 +76,7 @@ const main = {
 
 const container = {
   margin: '0 auto',
-  padding: '20px 25px 48px',
+  padding: '20px 10px 48px',
   backgroundImage: 'url("/assets/raycast-bg.png")',
   backgroundPosition: 'bottom',
   backgroundRepeat: 'no-repeat, no-repeat',
@@ -99,10 +95,6 @@ const body = {
 const paragraph = {
   fontSize: '16px',
   lineHeight: '26px',
-};
-
-const link = {
-  color: '#FF6363',
 };
 
 const hr = {

@@ -19,7 +19,7 @@ import { FirebaseError } from '@firebase/util';
 
 // import * as logger from 'firebase-functions/logger';
 
-setGlobalOptions({ maxInstances: 10 });
+setGlobalOptions({ maxInstances: 10, region: 'europe-west1' });
 
 initializeApp();
 
@@ -27,11 +27,6 @@ const auth = getAuth();
 
 // Start writing functions
 // https://firebase.google.com/docs/functions/typescript
-
-// export const helloWorld = onRequest((request, response) => {
-//   logger.info('Hello logs!', { structuredData: true });
-//   response.send('Hello from Firebase!');
-// });
 
 exports.sendEmail = onRequest(
   async (req: functions.Request, res: functions.Response) => {
@@ -45,7 +40,7 @@ exports.sendEmail = onRequest(
       };
 
       const magicLink = await auth.generateSignInWithEmailLink(
-        'mikeknowles.dez@gmail.com',
+        `${process.env.TO_EMAIL}`,
         actionCodeSettings
       );
 
