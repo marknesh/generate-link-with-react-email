@@ -27,7 +27,7 @@ export const Email = ({ magicLink = 'https://raycast.com' }: EmailProps) => (
       <Preview>Log in with this magic link.</Preview>
       <Body style={main}>
         <Container style={container}>
-          <Heading style={heading} className='text-red-500'>
+          <Heading style={heading} className='px-5 text-red-500'>
             🪄 Your magic link
           </Heading>
           <Section
@@ -43,13 +43,13 @@ export const Email = ({ magicLink = 'https://raycast.com' }: EmailProps) => (
               If you didn't request this, please ignore this email.
             </Text>
           </Section>
-          <Text style={paragraph}>
+          <Text style={paragraph} className='px-5 text-gray-800'>
             Best,
             <br />- Firebase dev Team
           </Text>
           <Hr style={hr} />
 
-          <Text style={footer}>
+          <Text style={footer} className='px-5'>
             You are receiving this email because you requested to login via
             magic link from our{' '}
             <Link
